@@ -37,6 +37,10 @@ if($cert){
 
      if ($wac -ne $null)
       {
+          # Import new certificate to Certificate Store
+          Logging -Message "Importing certificate to Cert:\LocalMachine\My"
+          Import-PfxCertificate -FilePath $cert.PfxFullChain -CertStoreLocation Cert:\LocalMachine\My -Password ('poshacme' | ConvertTo-SecureString -AsPlainText -Force)
+          
           # Bind new certificate to the service
           Logging -Message "Updating WAC Certificate"
           Start-Process msiexec.exe -Wait -ArgumentList "/i $($wac.LocalPackage) /qn /L*v c:\script\log.txt SME_PORT=1080 SME_THUMBPRINT=$($cert.Thumbprint) SSL_CERTIFICATE_OPTION=installed"
