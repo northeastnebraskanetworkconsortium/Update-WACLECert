@@ -43,7 +43,7 @@ if($cert){
           
           # Bind new certificate to the service
           Logging -Message "Updating WAC Certificate"
-          Start-Process msiexec.exe -Wait -ArgumentList "/i $($wac.LocalPackage) /qn /L*v c:\script\log.txt SME_PORT=1080 SME_THUMBPRINT=$($cert.Thumbprint) SSL_CERTIFICATE_OPTION=installed"
+          Start-Process msiexec.exe -Wait -ArgumentList "/i $($wac.LocalPackage) /qn /L*v c:\script\log.txt SME_PORT=443 SME_THUMBPRINT=$($cert.Thumbprint) SSL_CERTIFICATE_OPTION=installed"
 
           # When upgrading WAC, the firewall rule may be deleted. If so create a new rule after upgrade.
           Logging -Message "Recreate firewall rule"
